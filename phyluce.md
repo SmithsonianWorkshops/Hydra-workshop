@@ -55,54 +55,60 @@ This step is not required to process UCEs, but it allows you to count the number
 * **JOB FILE #1:** Counting read data (it is best practice to use a job file, even for a trivial task like this).
     + hint: use the QSub Generator: https://hydra-3.si.edu/tools/QSubGen
     		+ **Remember Chrome works best with this and to accept the security warning message*
-    + **CPU time:** short **We will be using short for all job files in this tutorial**
-    + **memory:** 1GB
+    + **CPU time:** short *(we will be using short for all job files in this tutorial)*
+    + **memory:** 2GB
     + **PE:** serial
-    + **shell:** sh **Use for all job files in the tutorial**
+    + **shell:** sh *(use for all job files in the tutorial)*
     + **modules:** none
     + **command:**  
-    ```for i in *R1*.fastq.gz;  
+    ```
+       for i in *R1*.fastq.gz;  
        do echo $i;
        gunzip -c $i | wc -l | awk '{print $1/4}';
-       done```       
-    + **job name:** countreads (or name of your choice)
+       done
+    ```       
+    + **job name:** countreads *(or name of your choice)*
 	+ **log file name:** countreads.log
-	+ **change to cwd:** Checked **Keep checked for all job files**
-	+ **join stderr & stdout** Checked **Keep checked for all job files**
+	+ **change to cwd:** Checked *(keep checked for all job files)*
+	+ **join stderr & stdout** Checked *(Keep checked for all job files)*
     + hint: upload your job file using ```scp``` from your local machine
     + hint: submit the job on Hydra using ```qsub```
 
 Here is a sample job file:  
-    `# /bin/sh`  
-    `# ----------------Parameters---------------------- #`  
-    `#$ -S /bin/sh`  
-    `#$ -q sThC.q`  
-    `#$ -l mres=4G,h_data=4G,h_vmem=4G`  
-    `#$ -cwd`  
-    `#$ -j y`  
-    `#$ -N countreads`  
-    `#$ -o countreads.log`  
-    `#`  
-    `# ----------------Modules------------------------- #`  
-    `#`  
-    `# ----------------Your Commands------------------- #`  
-    `#`  
-    ```echo + `date` job $JOB_NAME started in $QUEUE with jobID=$JOB_ID on $HOSTNAME``` 
-    `#`  
-    `for i in *R1*.fastq.gz; do echo $i; gunzip -c $i | wc -l | awk '{print $1/4}'; done`
-    `#`  
-    ```echo = `date` job $JOB_NAME done```  
+    ```
+    # /bin/sh  
+    # ----------------Parameters---------------------- #
+    #$ -S /bin/sh
+    #$ -q sThC.q
+    #$ -l mres=2G,h_data=2G,h_vmem=2G
+    #$ -cwd
+    #$ -j y
+    #$ -N countreads
+    #$ -o countreads.log
+    #
+    # ----------------Modules------------------------- #
+    #
+    # ----------------Your Commands------------------- #
+    #
+    echo + `date` job $JOB_NAME started in $QUEUE with jobID=$JOB_ID on $HOSTNAME
+    #
+    for i in *R1*.fastq.gz; do echo $i; gunzip -c $i | wc -l | awk '{print $1/4}'; done
+    #
+    echo = `date` job $JOB_NAME done
+    ```  
 
 Here's what should be in the log file after your job completes:
 
-```Alligator_mississippiensis_GGAGCTATGG_L001_R1.fastq.gz```   
-```1750000```   
-```Anolis_carolinensis_GGCGAAGGTT_L001_R1.fastq.gz```  
-```1874362```  
-```Gallus_gallus_TTCTCCTTCA_L001_R1.fastq.gz```   
-```376559```   
-```Mus_musculus_CTACAACGGC_L001_R1.fastq.gz```    
-```1298196```
+```
+Alligator_mississippiensis_GGAGCTATGG_L001_R1.fastq.gz
+1750000
+Anolis_carolinensis_GGCGAAGGTT_L001_R1.fastq.gz 
+1874362
+Gallus_gallus_TTCTCCTTCA_L001_R1.fastq.gz
+376559
+Mus_musculus_CTACAACGGC_L001_R1.fastq.gz
+1298196
+```
 
 ###3. Clean the read data
 These data are raw, so we need to trim adapters and low quality reads before assembly. There are many tools for this. We have modified phyluce's illumiprocessor to use Trim Galore! instead of Trimmomatic. Trim Galore! has the needed functionality but behaves better on Hydra (i.e. does not use Java). 
