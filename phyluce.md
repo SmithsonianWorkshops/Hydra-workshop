@@ -61,21 +61,21 @@ This step is not required to process UCEs, but it allows you to count the number
     + **shell:** sh *(use for all job files in the tutorial)*
     + **modules:** none
     + **command:**  
-    ```
-       for i in *R1*.fastq.gz;  
-       do echo $i;
-       gunzip -c $i | wc -l | awk '{print $1/4}';
-       done
-    ```       
+```
+   for i in *R1*.fastq.gz;
+   do echo $i;
+   gunzip -c $i | wc -l | awk '{print $1/4}';
+   done
+```       
     + **job name:** countreads *(or name of your choice)*
 	+ **log file name:** countreads.log
 	+ **change to cwd:** Checked *(keep checked for all job files)*
 	+ **join stderr & stdout** Checked *(Keep checked for all job files)*
-    + hint: upload your job file using ```scp``` from your local machine
+    + hint: upload your job file using ```scp``` from your local machine into the `raw-fastq` directory
     + hint: submit the job on Hydra using ```qsub```
 
 Here is a sample job file:  
-    ```
+```
     # /bin/sh  
     # ----------------Parameters---------------------- #
     #$ -S /bin/sh
@@ -92,10 +92,13 @@ Here is a sample job file:
     #
     echo + `date` job $JOB_NAME started in $QUEUE with jobID=$JOB_ID on $HOSTNAME
     #
-    for i in *R1*.fastq.gz; do echo $i; gunzip -c $i | wc -l | awk '{print $1/4}'; done
+    for i in *R1*.fastq.gz;
+    do echo $i;
+    gunzip -c $i | wc -l | awk '{print $1/4}';
+    done
     #
     echo = `date` job $JOB_NAME done
-    ```  
+```  
 
 Here's what should be in the log file after your job completes:
 
@@ -113,24 +116,27 @@ Mus_musculus_CTACAACGGC_L001_R1.fastq.gz
 ###3. Clean the read data
 These data are raw, so we need to trim adapters and low quality reads before assembly. There are many tools for this. We have modified phyluce's illumiprocessor to use Trim Galore! instead of Trimmomatic. Trim Galore! has the needed functionality but behaves better on Hydra (i.e. does not use Java). 
 
-* You will first need to copy a configuration file called ```illumiprocessor.conf``` from ```/pool/genomics/tutorial-data``` to your ```uce-tutorial``` directory.
-		+ hint: use ```cp```.
+* You will first need to copy a configuration file called `illumiprocessor.conf` from `/pool/genomics/tutorial_data` to your `uce-tutorial` directory.
+	+ hint: use ```cp```.
+	+ Make sure you've changed from the ```uce-tutorial``` directory to ```raw-fastq``` with the command ```cd ..``` before copying the file.
 
 
 * **JOB FILE #2:** illumiprocessor  
     + hint: your raw reads are in ```raw-fastq``` but you want to run illumiprocessor from ```uce-tutorial```
+    + **PE:** multi-thread 2 
+    + **memory:** 2 GB
     + **modules:** phyluce_tg
     + **command:** `illumiprocessor`
-    + **arguments:**  
-    ```--input raw-fastq```  
-    ```--output clean-fastq```  
-    ```--config illumiprocessor.conf```  
-    ```--paired```  
-    ```--cores $NSLOTS```  
-    + **PE:** mthread 2 
-    + **memory:** 2 GB
+    	+ **arguments:**  
+```
+--input raw-fastq \  
+--output clean-fastq \
+--config illumiprocessor.conf \
+--paired \
+--cores $NSLOTS
+```
     
-* Check the log file and ```clean-fastq``` for results. Your cleaned files should be in ```clean-fastq/split-adapter-quality-trimmed```
+* Check the log file and ```clean-fastq``` for results. Your cleaned files will be in ```clean-fastq/split-adapter-quality-trimmed```
 
 ###4. Assemble the data
 We will use Trinity to assemble the data into contigs.  
