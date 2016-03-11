@@ -30,7 +30,7 @@ First we will get the tutorial data.
 
 * log in to Hydra
 * change to your directory  
-    + hint: ```/pool/genomics/USERNAME```
+    + hint: `cd /pool/genomics/USERNAME` where *USERNAME* is your Hydra login name
 * create a project directory  
 ```mkdir uce-tutorial```
 * change to that directory  
@@ -55,20 +55,20 @@ This step is not required to process UCEs, but it allows you to count the number
 * **JOB FILE #1:** Counting read data (it is best practice to use a job file, even for a trivial task like this).
     + hint: use the QSub Generator: https://hydra-3.si.edu/tools/QSubGen
     		+ **Remember Chrome works best with this and to accept the security warning message*
-    + **CPU time:** short
+    + **CPU time:** short **We will be using short for all job files in this tutorial**
     + **memory:** 1GB
     + **PE:** serial
-    + **shell:** sh
+    + **shell:** sh **Use for all job files in the tutorial**
     + **modules:** none
     + **command:**  
-    ```for i in *R1*.fastq.gz;```  
-    ```do echo $i;```   
-    ```gunzip -c $i | wc -l | awk '{print $1/4}';```  
-    ```done```       
+    ```for i in *R1*.fastq.gz;  
+       do echo $i;
+       gunzip -c $i | wc -l | awk '{print $1/4}';
+       done```       
     + **job name:** countreads (or name of your choice)
 	+ **log file name:** countreads.log
-	+ **change to cwd:** Checked
-	+ **join stderr & stdout** Checked
+	+ **change to cwd:** Checked **Keep checked for all job files**
+	+ **join stderr & stdout** Checked **Keep checked for all job files**
     + hint: upload your job file using ```scp``` from your local machine
     + hint: submit the job on Hydra using ```qsub```
 
