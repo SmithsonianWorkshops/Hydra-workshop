@@ -17,7 +17,7 @@ You will generate 17 job files for Hydra during this tutorial that encompass the
 11. Final data matrices  
 12. Preparing data for RAxML and ExaML  
 
-Here, we will process raw Illumina UCE data for 4 taxa:
+Here, we will process raw Illumina UCE data for 4 taxa that were enriched with the 5000 UCE Tetrapod probe set:
 
 1. *Mus musculus* (PE100)
 2. *Anolis carolinensis* (PE100)
@@ -35,7 +35,7 @@ First we will get the tutorial data.
 ```mkdir uce-tutorial```
 * change to that directory  
 ```cd uce-tutorial```
-* If you are running this tutorial after the workshop, see the end of the document for instructions in order to download the data using wget. Because there are so many of us working on the login node at once today, we will copy the data from ```/pool/genomics/tutorial_data```
+* If you are running this tutorial after the workshop, see the [end of the document](###Addendum) for instructions in order to download the data using wget. Because there are so many of us working on the login node at once today, we will copy the data from ```/pool/genomics/tutorial_data```
 * make a directory to hold the raw data  
 ```mkdir raw-fastq```
 * change to the directory we just created  
@@ -478,3 +478,26 @@ Here we will formatting our 75p data matrix into a phylip file for RAxML or ExaM
         ```
 
 * The directory ```mafft-nexus-internal-trimmed-gblocks-clean-75p-raxml``` now contains the alignment in phylip format ready for RAxML or ExaML.
+
+
+###Addendum
+*Downloading tutorial data from figshare*
+If you are working on this tutorial and don't have access to pre-downloaded raw fastq files on Hydra, you can download them from figshare with this command:
+
+```
+wget -O fastq.zip https://ndownloader.figshare.com/articles/1284521/versions/1
+unzip fastq.zip
+rm fastq.zip
+```
+
+In the fastq files we downloaded for you we renamed the fastq files so they will work with Trim Galore! To rename your newly downloaded files use these commands:
+```
+mv Alligator_mississippiensis_GGAGCTATGG_L001_R1_001.fastq.gz Alligator_mississippiensis_GGAGCTATGG_L001_R1.fastq.gz
+mv Alligator_mississippiensis_GGAGCTATGG_L001_R2_001.fastq.gz Alligator_mississippiensis_GGAGCTATGG_L001_R2.fastq.gz
+mv Anolis_carolinensis_GGCGAAGGTT_L001_R1_001.fastq.gz Anolis_carolinensis_GGCGAAGGTT_L001_R1.fastq.gz
+mv Anolis_carolinensis_GGCGAAGGTT_L001_R2_001.fastq.gz Anolis_carolinensis_GGCGAAGGTT_L001_R2.fastq.gz
+mv Gallus_gallus_TTCTCCTTCA_L001_R1_001.fastq.gz Gallus_gallus_TTCTCCTTCA_L001_R1.fastq.gz
+mv Gallus_gallus_TTCTCCTTCA_L001_R2_001.fastq.gz Gallus_gallus_TTCTCCTTCA_L001_R2.fastq.gz
+mv Mus_musculus_CTACAACGGC_L001_R1_001.fastq.gz Mus_musculus_CTACAACGGC_L001_R1.fastq.gz
+mv Mus_musculus_CTACAACGGC_L001_R2_001.fastq.gz Mus_musculus_CTACAACGGC_L001_R2.fastq.gz
+```
