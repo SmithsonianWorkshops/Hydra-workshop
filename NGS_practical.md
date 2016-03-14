@@ -2,7 +2,8 @@
 
 
 ##How to begin
-Navigate to the `data` directory in your `/pool` directory.
+Navigate to your `/pool/genomics` directory.
+Make a new directory called `ngs_tutorial` and copy the `sequences.fq` file from `/pool/genomics/workshops/hydra` directory into your new `ngs_tutorial` directory. Navigate into your `ngs_tutorial` directory.
 
 ##Running jobs on Hydra
 
