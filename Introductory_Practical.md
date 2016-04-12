@@ -19,7 +19,7 @@ Now let's fill out our QSUB script:
 Now we will upload our script:
 
 1. Rename your file to `helloworld.job` and save it to your desktop.
-2. Now upload it to hydra by opening your terminal window and entering `cd ~/Desktop` (on Mac) and issuing the command `scp helloworld.job <username>@hydra-login01.si.edu:/pool/genomics/<username>`
+2. Now you upload your script to hydra. Open up a fresh terminal window and type the command `cd ~/Desktop` (on Mac). This will put you in your Desktop directory. If you downloaded your file to a different directory, you will want to enter the command `cd <path_to_directory_containing_file>`. Once you are there, you should enter the command `ls` and ensure that your job file is in your directory. To upload your script to Hydra, you can use scp: `scp helloworld.job <username>@hydra-login01.si.edu:/pool/genomics/<username>`
 
 Now, we will run our job:
 
