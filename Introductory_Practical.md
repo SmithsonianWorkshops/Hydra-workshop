@@ -19,12 +19,12 @@ Now let's fill out our QSUB script:
 Now we will upload our script:
 
 1. Rename your file to `helloworld.job` and save it to your desktop.
-2. Now you upload your script to hydra. Open up a fresh terminal window and type the command `cd ~/Desktop` (on Mac). This will put you in your Desktop directory. If you downloaded your file to a different directory, you will want to enter the command `cd <path_to_directory_containing_file>`. Once you are there, you should enter the command `ls` and ensure that your job file is in your directory. To upload your script to Hydra, you can use scp: `scp helloworld.job <username>@hydra-login01.si.edu:/pool/biology/<username>`
+2. Now you upload your script to hydra. Open up a fresh terminal window and type the command `cd ~/Desktop` (on Mac). This will put you in your Desktop directory. If you downloaded your file to a different directory, you will want to enter the command `cd <path_to_directory_containing_file>`. Once you are there, you should enter the command `ls` and ensure that your job file is in your directory. To upload your script to Hydra, you can use scp: `scp helloworld.job <username>@hydra-login01.si.edu:/pool/genomics/<username>`
 
 Now, we will run our job:
 
 1. Login to hydra by typing `ssh <username>@hydra-login01.si.edu` in your terminal window and enter your password. Hint: the cursor on the terminal window will not move when you enter your password. Don't fret, your keystrokes are working just fine.
-2. Once in hydra change to your pool directory with the `cd /pool/biology/<username>` command.
+2. Once in hydra change to your pool directory with the `cd /pool/genomics/<username>` command.
 3. Once in this directory, you can submit your job using `qsub helloworld.job`.
 4. If your file was submitted correctly, you will receive confirmation that your job was submitted. Note: it is wise to take note of the job number so that you can check on its progress later.
 5. Wait a minute or two, then check if the logfile was written by using `ls`. There should be a file called `helloworld.job`.
@@ -50,7 +50,7 @@ Now we will fill this out with specifics for RAxML
 
 Now upload your file to hydra. Hint: you can use a similar method that you did with the 'Hello world!" example.
 
-Now login to hydra and copy the primates.dna.phy file into your folder. You can do this by changing to your `/pool/biology/<username>` directory and issuing the command `cp /pool/biology/data/hydra/primates.dna.phy .`
+Now login to hydra and copy the primates.dna.phy file into your folder. You can do this by changing to your `/pool/genomics/<username>` directory and issuing the command `cp /pool/genomics/data/hydra/primates.dna.phy .`
 
 Now submit your job by issuing the command `qsub raxmltest.job`.
 
